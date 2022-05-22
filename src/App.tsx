@@ -8,44 +8,55 @@ import { NO_OFFER_APPLICABLE, ID } from "./utils/Constants";
 import "./App.css";
 
 function App() {
+  // hooks to store qunatity of types of pizza
   const [qtySmallPizza, setQtySmallPizza] = useState(0);
   const [qtyMediumPizza, setQtyMediumPizza] = useState(0);
   const [qtyLargePizza, setQtyLargePizza] = useState(0);
 
+  // hook to store output value
   const [output, setOutput] = useState(0);
+  // hook to store rule/offer applied
   const [ruleOfferDescription, setRuleOfferDescription] =
     useState(NO_OFFER_APPLICABLE);
 
+  // hook to store value from customer dropdown
   const [selectedDropdownOption, setSelectedDropdownOption] =
     useState<String>();
 
+  // function invoked on adding small pizza
   function onClickAddSmallPizza() {
     setQtySmallPizza(qtySmallPizza + 1);
   }
 
+  // function invoked on adding medium pizza
   function onClickAddMediumPizza() {
     setQtyMediumPizza(qtyMediumPizza + 1);
   }
 
+  // function invoked on adding large pizza
   function onClickAddLargePizza() {
     setQtyLargePizza(qtyLargePizza + 1);
   }
 
+  // fuction invoked on subtracting small pizza
   function onClickSubSmallPizza() {
     if (qtySmallPizza === 0) return;
     setQtySmallPizza(qtySmallPizza - 1);
   }
 
+  // function invoked on subtracting medium pizza
   function onClickSubMediumPizza() {
     if (qtyMediumPizza === 0) return;
     setQtyMediumPizza(qtyMediumPizza - 1);
   }
 
+  // function invoked on subtracting large pizza
   function onClickSubLargePizza() {
     if (qtyLargePizza === 0) return;
     setQtyLargePizza(qtyLargePizza - 1);
   }
 
+  // function invoked on selection of value from customer dropdown
   function onChangeDropdown(event: React.ChangeEvent<HTMLSelectElement>) {
     setSelectedDropdownOption(event.target.value);
     setQtySmallPizza(0);
@@ -59,6 +70,7 @@ function App() {
     }
   }
 
+  // use effect hook which calculates ouput when dropdown is changed or quanitity of pizza's
   useEffect(() => {
     let output = new Checkout(price, rules);
     output.addItems(qtySmallPizza, qtyMediumPizza, qtyLargePizza);
